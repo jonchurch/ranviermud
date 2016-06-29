@@ -1,0 +1,21 @@
+- title:
+    en: Champagne Room
+  location: 5
+  description:
+    en: >-
+      Absolutely no sex here. There are drug utensils dodgily eyeing the badly
+      beaten up couch.
+  short_desc:
+    en: The walls breathe heavily
+  dark_desc:
+    en: Something snores in the dark
+  biome: indoors
+  exits:
+    -
+      location: 1
+      direction: north
+    - location: 6
+      direction: out
+      leaveMessage:
+        en: ' '
+  area: tealhouse

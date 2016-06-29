@@ -1,0 +1,12 @@
+So if I can supply ranvier with a string of data, it will use it as args in its functions
+
+Player.write sends things to the player's socket under ranvier's current config
+
+Ranvier emits data as ('data', STRING)
+
+So things get passed to command loop as player.getSocket.once('data', )
+
+when commands is called (emitted), 'data' listener is set ONCE, and on 'data' emit from player input, parses the string from player input into commands, exits, skills, channels, or error, then emits 'commands' on player socket
+
+facebook botkit events include a 'message_received' event containing user, channel, and text or attachment fields
+

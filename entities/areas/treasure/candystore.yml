@@ -1,0 +1,16 @@
+- title:
+    en: Candy Store
+  location: 6
+  description:
+    en: This is the place
+  short_desc:
+    en: That rug really tied this place together...
+  dark_desc:
+    en: Got a light?
+  biome: indoors
+  exits: 
+    -
+      location: 4
+      direction: 'south'
+    
+  area: treasure

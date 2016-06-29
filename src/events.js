@@ -91,15 +91,19 @@ var Events = {
 				var motd = Data.loadMotd();
 				if (motd) {
 					arg.write(motd);
+					//bot.say(user, motd);
 				}
 				next(arg, 'login');
 				break;
 			case 'login':
 				if (!dontwelcome) {
 					arg.write("Welcome, what is your name? ");
+					//bot.say(user, 'Welcome, what is your name?')
 				}
 
-				arg.once('data', function (name) {
+				arg.once('data', function (name)
+				//controller.once('data', function(name))
+								 {
 					// swallow any data that's not from player input i.e., doesn't end with a newline
 					// Windows can s@#* a d@#$
 					var negot = false;
@@ -262,7 +266,7 @@ var Events = {
 				}
 
 				if (result !== false) {
-					player.prompt();
+					//player.prompt();
 					player.getSocket().emit("commands", player);
 				}
 			});

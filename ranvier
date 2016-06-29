@@ -31,7 +31,49 @@ var net = require('net'),
 	// third party
 	Localize  = require('localize'),
 	argv = require('optimist').argv,
-	telnet = require('./src/3rdparty/telnet.js');
+	telnet = require('./src/3rdparty/telnet.js'),
+
+//////// BOTKIT STUFF VVVVVVVVVVVVVVVV
+if (!process.env.page_token) {
+    console.log('Error: Specify page_token in environment');
+    process.exit(1);
+}
+
+if (!process.env.verify_token) {
+    console.log('Error: Specify verify_token in environment');
+    process.exit(1);
+}
+
+	Botkit = require('botkit');
+	var os = require('os');
+var commandLineArgs = require('command-line-args');
+var localtunnel = require('localtunnel');
+
+const cli = commandLineArgs([
+      {name: 'lt', alias: 'l', args: 1, description: 'Use localtunnel.me to make your bot available on the web.',
+      type: Boolean, defaultValue: false},
+      {name: 'ltsubdomain', alias: 's', args: 1,
+      description: 'Custom subdomain for the localtunnel.me URL. This option can only be used together with --lt.',
+      type: String, defaultValue: null},
+   ]);
+
+const ops = cli.parse();
+if(ops.lt === false && ops.ltsubdomain !== null) {
+    console.log("error: --ltsubdomain can only be used together with --lt.");
+    process.exit();
+}
+
+var controller = Botkit.facebookbot({
+    debug: true,
+    access_token: process.env.page_token,
+    verify_token: process.env.verify_token,
+});
+
+var bot = controller.spawn({
+});
+
+
+//////// BOTKIT STUFF ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 /**
  * These aren't really globals, they're only "global" to this file,
@@ -91,7 +133,8 @@ var init = function (restart_server)
 		/**
 		* Effectively the 'main' game loop but not really because it's a REPL
 		*/
-		server = new telnet.Server(function (socket) {
+
+	/*	server = new telnet.Server(function (socket) {
 			socket.on('interrupt', function () {
 				socket.write("\n*interrupt*\n");
 			});
@@ -107,9 +150,25 @@ var init = function (restart_server)
 			socket.emit('login', socket);
 
 		});
+*/
+
+
+	for (var event in Events.events) {
+		controller.on(event, Events.events[event]);
+}
+controller.on('message_received', function(message) {
+	//placeholder for dev so until I figure out how to log a user in properly
+	var user = {user: process.env.USERID, channel: process.env.USERID};
+	controller.emit('data', message.text);
+
+});
+
+controller.emit('login');
+	console.log('User Connected....');
+
 
 		// start the server
-		server.listen(commander.port).on('error', function(err) {
+		controller.listen(commander.port).on('error', function(err) {
 			if (err.code === 'EADDRINUSE') {
 				util.log("Cannot start server on port " + commander.port + ", address is already in use.");
 				util.log("Do you have a MUD server already running?");
@@ -122,6 +181,8 @@ var init = function (restart_server)
 			}
 			process.exit(1);
 		});
+
+
 
 		// save every 10 minutes
 		util.log("Setting autosave to " + commander.save + " minutes.");

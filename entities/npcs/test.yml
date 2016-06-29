@@ -26,3 +26,7 @@
   room: 1
 - <<: *guard
   room: 1
+- *guard
+  room: 4
+
+

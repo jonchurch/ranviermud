@@ -2,6 +2,7 @@
   title: 
     en: 'Test'
     es: 'ES - Test'
+  location: 1
   description: 
     en: 'You are in the test room. there isn''t much here'
     es: 'ES-You are in the test room. there isn''t much here'
@@ -9,13 +10,19 @@
     - 
       location: 2
       direction: 'north'
+    -
+      location: 6
+      direction: 'candy'
+    -
+    location: 
+      location: 4
+      direction: 'down'
     - 
       location: 3
       direction: 'ladder'
       leave_message: 
         en: ' climbs up the ladder.'
         es: ' climbs up the ladder. ES'
-  location: 1
   area: 'test'
 - 
   title: 
@@ -37,6 +44,25 @@
   script: '3.js'
   description: 
     en: 'You''re up a ladder, how silly.'
+    es: 'ES - You''re up a ladder, how silly.'
+  exits: 
+    - 
+      location: 1
+      direction: 'down'
+      leave_message: 
+        en: ' slides down the ladder.'
+        es: ' slides down the ladder. ES'
+    -
+      location: 5
+      direction: 'up'
+- 
+  title: 
+    en: 'Ladder'
+    es: 'ES-Ladder'
+  location: 4
+  script: '3.js'
+  description: 
+    en: 'LEEEEEEEEEEEEERRRRROOOOOOOOYYYYYYYYY'
     es: 'ES - You''re up a ladder, how silly.'
   exits: 
     - 
