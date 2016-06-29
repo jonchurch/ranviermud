@@ -12,6 +12,9 @@
  */
 
 
+var socket_log;
+
+
 	// built-ins
 var net = require('net'),
 	util = require('util'),
@@ -94,12 +97,22 @@ var init = function (restart_server)
 		server = new telnet.Server(function (socket) {
 			socket.on('interrupt', function () {
 				socket.write("\n*interrupt*\n");
+				
 			});
 
+			// server_log = server;
+
+			util.log('\n ========MAIN GAME LOOP======= \n =========NEW TELNET SERVER: \n'+util.inspect(server));
+
+
+			util.log('============SOCKET BEFORE EVENTS: \n'+ util.inspect(socket));
 			// Register all of the events
 			for (var event in Events.events) {
 				socket.on(event, Events.events[event]);
 			}
+			socket_log = socket;
+
+			util.log('============SOCKET AFTER EVENTS: \n' + util.inspect(socket));
 
 			socket.write("Connecting...\n");
 			util.log("User connected...");
@@ -290,6 +303,10 @@ var server_commands = {
 			players.each(function (p) { p.getSocket().end(); });
 			init(true);
 		}, time);
+	},
+	server: function(args) {
+		console.log(util.inspect(server._connections));
+		console.log(util.inspect(socket_log));
 	}
 };
 //
