@@ -1,21 +1,22 @@
 {
-	"name":"ranviermud",
-	"version":"0.0.1",
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/shawncplus/ranviermud.git"
-	},
-	"dependencies":{
-		"colorize":"",
-		"js-yaml":"",
-		"localize":"",
-		"node-uuid":"",
-		"optimist":"",
-		"sprintf":"",
-		"sty":"",
-		"yaml":"",
-		"express":"",
-		"jade":"",
-		"commander": ""
-	}
+  "name": "ranviermud",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shawncplus/ranviermud.git"
+  },
+  "dependencies": {
+    "botkit": "^0.2.2",
+    "colorize": "",
+    "commander": "",
+    "express": "",
+    "jade": "",
+    "js-yaml": "",
+    "localize": "",
+    "node-uuid": "",
+    "optimist": "",
+    "sprintf": "",
+    "sty": "",
+    "yaml": ""
+  }
 }
